@@ -45,7 +45,7 @@ body {
   background-attachment: fixed;
 }
 
-img { max-width: 100%; display: block; }
+img { max-width: 100%; height: auto; display: block; }
 a { color: var(--laguna); }
 :focus-visible { outline: 3px solid var(--oro); outline-offset: 3px; border-radius: 4px; }
 

@@ -41,12 +41,23 @@
   function leggi(id) { try { return JSON.parse(localStorage.getItem(CHIAVE + id) || "null"); } catch (e) { return null; } }
 
   /* ---------- Voce (sintesi vocale) ---------- */
-  var voce = null, haVoce = "speechSynthesis" in window;
+  // Voci italiane: maschili e femminili riconosciute dal nome (Windows, Edge, macOS/iOS, Android)
+  var NOMI_M = /diego|cosimo|luca|giuseppe|benigno|calimero|cataldo|gianni|lisandro|rinaldo|giorgio|paolo|marco|roberto|male|maschil|uomo/i;
+  var NOMI_F = /alice|federica|elsa|isabella|paola|fiamma|imelda|irma|palmira|pierina|emma|carla|silvia|bianca|female|femmin|donna/i;
+  var QUALITA = /natural|neural|premium|enhanced|online|google/i;
+  var voce = null, voceM = null, voceF = null, haVoce = "speechSynthesis" in window;
+  function migliore(lista) { return lista.sort(function (a, b) { return (QUALITA.test(b.name) ? 1 : 0) - (QUALITA.test(a.name) ? 1 : 0); })[0] || null; }
   function scegliVoce() {
     if (!haVoce) return;
-    var v = speechSynthesis.getVoices();
-    voce = v.filter(function (x) { return /^it(-|_|$)/i.test(x.lang); })
-      .sort(function (a, b) { return (/google|natural|premium|enhanced|alice|federica|elsa/i.test(b.name) ? 1 : 0) - (/google|natural|premium|enhanced|alice|federica|elsa/i.test(a.name) ? 1 : 0); })[0] || null;
+    var it = speechSynthesis.getVoices().filter(function (x) { return /^it(-|_|$)/i.test(x.lang); });
+    voceM = migliore(it.filter(function (x) { return NOMI_M.test(x.name) && !NOMI_F.test(x.name); }));
+    voceF = migliore(it.filter(function (x) { return NOMI_F.test(x.name) || /google/i.test(x.name); }));
+    voce = voceF || migliore(it.slice());
+  }
+  // Chi parla? data-voce="m" / "f" sul bottone o su un contenitore
+  function sesso(bottone) {
+    var c = bottone && bottone.closest ? bottone.closest("[data-voce]") : null;
+    return c ? c.getAttribute("data-voce") : "";
   }
   if (haVoce) { scegliVoce(); speechSynthesis.onvoiceschanged = scegliVoce; }
   else document.documentElement.classList.add("no-voce");
@@ -58,7 +69,13 @@
     speechSynthesis.cancel();
     document.querySelectorAll(".parla").forEach(function (b) { b.classList.remove("parla"); });
     var u = new SpeechSynthesisUtterance(testo);
-    u.lang = "it-IT"; if (voce) u.voice = voce;
+    u.lang = "it-IT";
+    var s = sesso(bottone);
+    if (s === "m") {
+      if (voceM) u.voice = voceM;
+      else { if (voce) u.voice = voce; u.pitch = 0.55; } // nessuna voce maschile: abbassiamo il tono
+    } else if (s === "f") { if (voceF || voce) u.voice = voceF || voce; }
+    else if (voce) u.voice = voce;
     u.rate = lento ? 0.62 : 0.88;
     if (bottone) bottone.classList.add("parla");
     u.onend = u.onerror = function () { if (bottone) bottone.classList.remove("parla"); if (fine) fine(); };
@@ -449,7 +466,7 @@
       var griglia = el("div", { class: "carte" });
       g.carte.forEach(function (c) {
         var b = el("button", { type: "button", class: "carta", "aria-label": c[0] + ". Tocca per vedere la traduzione" },
-          '<span class="carta-in"><span class="fronte">' + esc(c[0]) + '</span><span class="retro">' + esc(c[1]) + "</span></span>");
+          '<span class="carta-in"><span class="fronte">' + esc(c[0]) + '</span><span class="retro" lang="ru">' + esc(c[1]) + "</span></span>");
         b.addEventListener("click", function () {
           var girata = b.classList.toggle("girata");
           b.setAttribute("aria-label", girata ? c[1] : c[0] + ". Tocca per vedere la traduzione");
@@ -483,7 +500,10 @@
   });
 
   /* ---------- Bottoni voce automatici ---------- */
+  var UOMINI = ["roberto", "tu", "luca", "alessio", "marco", "paolo", "matteo"];
   document.querySelectorAll(".battuta").forEach(function (r) {
+    var nome = (r.querySelector(".chi") || {}).textContent || "";
+    if (!r.hasAttribute("data-voce")) r.setAttribute("data-voce", UOMINI.indexOf(nome.trim().toLowerCase()) > -1 ? "m" : "f");
     if (!r.querySelector(".ascolta")) r.appendChild(bottoneVoce(r.querySelector(".cosa").textContent));
   });
   document.querySelectorAll(".ascolta:empty").forEach(function (b) { b.innerHTML = ICONA_VOCE; b.type = "button"; if (!b.title) b.title = "Ascolta"; if (!b.getAttribute("aria-label")) b.setAttribute("aria-label", "Ascolta: " + b.getAttribute("data-say")); });

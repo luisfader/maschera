@@ -344,28 +344,28 @@ window.ESERCIZI = {
   }
 };
 
-/* Frasi per le flashcard (G. Note importanti) */
+/* Frasi per le flashcard (G. Note importanti) — traduzione in russo */
 window.CARTE = [
   { titolo: "Saluti", carte: [
-    ["Ciao!", "¡Hola! / ¡Chau!"], ["Buongiorno!", "¡Buenos días!"], ["Buon pomeriggio!", "¡Buenas tardes!"],
-    ["Buonasera!", "¡Buenas tardes / noches!"], ["Buonanotte!", "¡Buenas noches! (al ir a dormir)"],
-    ["Arrivederci!", "¡Adiós!"], ["A presto!", "¡Hasta pronto!"], ["A domani!", "¡Hasta mañana!"] ] },
+    ["Ciao!", "Привет! / Пока!"], ["Buongiorno!", "Доброе утро! / Добрый день!"], ["Buon pomeriggio!", "Добрый день! (после обеда)"],
+    ["Buonasera!", "Добрый вечер!"], ["Buonanotte!", "Спокойной ночи!"],
+    ["Arrivederci!", "До свидания!"], ["A presto!", "До скорого!"], ["A domani!", "До завтра!"] ] },
   { titolo: "Parole gentili", carte: [
-    ["Per favore", "Por favor"], ["Grazie", "Gracias"], ["Grazie mille", "Muchas gracias"], ["Prego", "De nada"],
-    ["Scusa", "Perdón / Disculpa"], ["Mi dispiace", "Lo siento"], ["Va bene", "Está bien"], ["Non c’è problema", "No hay problema"] ] },
+    ["Per favore", "Пожалуйста (просьба)"], ["Grazie", "Спасибо"], ["Grazie mille", "Большое спасибо"], ["Prego", "Пожалуйста / Не за что"],
+    ["Scusa", "Извини"], ["Mi dispiace", "Мне жаль"], ["Va bene", "Хорошо / Ладно"], ["Non c’è problema", "Нет проблем"] ] },
   { titolo: "Prime domande", carte: [
-    ["Come stai?", "¿Cómo estás?"], ["Come va?", "¿Cómo va?"], ["Come ti chiami?", "¿Cómo te llamas?"],
-    ["Di dove sei?", "¿De dónde eres?"], ["Quanti anni hai?", "¿Cuántos años tienes?"], ["Parli italiano?", "¿Hablas italiano?"], ["Capisci?", "¿Entiendes?"] ] },
+    ["Come stai?", "Как ты? / Как дела?"], ["Come va?", "Как дела?"], ["Come ti chiami?", "Как тебя зовут?"],
+    ["Di dove sei?", "Откуда ты?"], ["Quanti anni hai?", "Сколько тебе лет?"], ["Parli italiano?", "Ты говоришь по-итальянски?"], ["Capisci?", "Понимаешь?"] ] },
   { titolo: "Prime risposte", carte: [
-    ["Sto bene.", "Estoy bien."], ["Sto molto bene.", "Estoy muy bien."], ["Così così.", "Más o menos."],
-    ["Mi chiamo Roberto.", "Me llamo Roberto."], ["Sono argentino. / Sono argentina.", "Soy argentino. / Soy argentina."],
-    ["Sono di Buenos Aires.", "Soy de Buenos Aires."], ["Ho quarantuno anni.", "Tengo cuarenta y un años."],
-    ["Parlo un po’ italiano.", "Hablo un poco de italiano."], ["Non capisco.", "No entiendo."] ] },
+    ["Sto bene.", "У меня всё хорошо."], ["Sto molto bene.", "У меня всё очень хорошо."], ["Così così.", "Так себе."],
+    ["Mi chiamo Roberto.", "Меня зовут Роберто."], ["Sono argentino. / Sono argentina.", "Я аргентинец. / Я аргентинка."],
+    ["Sono di Buenos Aires.", "Я из Буэнос-Айреса."], ["Ho quarantuno anni.", "Мне сорок один год."],
+    ["Parlo un po’ italiano.", "Я немного говорю по-итальянски."], ["Non capisco.", "Я не понимаю."] ] },
   { titolo: "Parole molto importanti", carte: [
-    ["Sì", "Sí"], ["No", "No"], ["Forse", "Quizás"], ["Bene", "Bien"], ["Male", "Mal"], ["Molto", "Mucho / Muy"],
-    ["Poco", "Poco"], ["Adesso", "Ahora"], ["Oggi", "Hoy"], ["Domani", "Mañana"], ["Ieri", "Ayer"] ] },
+    ["Sì", "Да"], ["No", "Нет"], ["Forse", "Может быть"], ["Bene", "Хорошо"], ["Male", "Плохо"], ["Molto", "Много / Очень"],
+    ["Poco", "Мало"], ["Adesso", "Сейчас"], ["Oggi", "Сегодня"], ["Domani", "Завтра"], ["Ieri", "Вчера"] ] },
   { titolo: "Frasi utili in classe", carte: [
-    ["Puoi ripetere, per favore?", "¿Puedes repetir, por favor?"], ["Come si dice in italiano?", "¿Cómo se dice en italiano?"],
-    ["Che significa?", "¿Qué significa?"], ["Non lo so.", "No lo sé."], ["Ho una domanda.", "Tengo una pregunta."],
-    ["È facile.", "Es fácil."], ["È difficile.", "Es difícil."] ] }
+    ["Puoi ripetere, per favore?", "Можешь повторить, пожалуйста?"], ["Come si dice in italiano?", "Как это сказать по-итальянски?"],
+    ["Che significa?", "Что это значит?"], ["Non lo so.", "Я не знаю."], ["Ho una domanda.", "У меня вопрос."],
+    ["È facile.", "Это легко."], ["È difficile.", "Это трудно."] ] }
 ];
