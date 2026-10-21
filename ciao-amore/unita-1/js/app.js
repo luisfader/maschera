@@ -457,24 +457,33 @@
     });
   });
 
-  /* ---------- Flashcard ---------- */
+  /* ---------- Lessico: italiano + russo ---------- */
   var cont = document.getElementById("carte");
   if (cont && window.CARTE) {
-    window.CARTE.forEach(function (g) {
-      var box = el("div", { class: "gruppo-carte" });
-      box.appendChild(el("h4", { text: g.titolo }));
-      var griglia = el("div", { class: "carte" });
+    window.CARTE.forEach(function (g, gi) {
+      var box = el("section", { class: "lessico", "aria-labelledby": "lessico-" + gi });
+      var testa = el("div", { class: "lessico-testa" });
+      testa.appendChild(el("h4", { id: "lessico-" + gi, text: g.titolo }));
+      var tog = el("button", { type: "button", class: "lessico-toggle", "aria-pressed": "false", text: "Nascondi il russo" });
+      testa.appendChild(tog);
+      box.appendChild(testa);
+      var ul = el("ul", { class: "lessico-lista" });
       g.carte.forEach(function (c) {
-        var b = el("button", { type: "button", class: "carta", "aria-label": c[0] + ". Tocca per vedere la traduzione" },
-          '<span class="carta-in"><span class="fronte">' + esc(c[0]) + '</span><span class="retro" lang="ru">' + esc(c[1]) + "</span></span>");
-        b.addEventListener("click", function () {
-          var girata = b.classList.toggle("girata");
-          b.setAttribute("aria-label", girata ? c[1] : c[0] + ". Tocca per vedere la traduzione");
-          if (girata) parla(c[0].replace(" / ", ". "));
-        });
-        griglia.appendChild(b);
+        var li = el("li");
+        var it = el("span", { class: "lessico-it", lang: "it", text: c[0] });
+        var ru = el("button", { type: "button", class: "lessico-ru", lang: "ru", text: c[1], "aria-label": c[1] });
+        ru.addEventListener("click", function () { li.classList.toggle("svelato"); });
+        li.appendChild(it); li.appendChild(ru);
+        li.appendChild(bottoneVoce(c[0].replace(" / ", ". ")));
+        ul.appendChild(li);
       });
-      box.appendChild(griglia);
+      box.appendChild(ul);
+      tog.addEventListener("click", function () {
+        var nascosto = box.classList.toggle("nascondi");
+        tog.setAttribute("aria-pressed", nascosto ? "true" : "false");
+        tog.textContent = nascosto ? "Mostra il russo" : "Nascondi il russo";
+        ul.querySelectorAll("li").forEach(function (li) { li.classList.remove("svelato"); });
+      });
       cont.appendChild(box);
     });
   }

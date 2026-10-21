@@ -384,20 +384,29 @@ select.campo { padding-right: 28px; cursor: pointer; appearance: none;
 .lightbox img { margin: 0 auto; max-width: min(1100px, 100%); height: auto; border-radius: 8px; }
 .lightbox button { position: fixed; top: 14px; right: 18px; width: 46px; height: 46px; border-radius: 50%; border: 0; background: var(--oro); color: #fff; font-size: 1.6rem; cursor: pointer; }
 
-/* Note / flashcard */
-.carte { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 12px; }
-.carta {
-  perspective: 800px; height: 108px; border: 0; padding: 0; background: transparent; cursor: pointer; font: inherit;
+/* Lessico (G. Note importanti) */
+#carte { columns: 2 440px; column-gap: 24px; }
+.lessico { break-inside: avoid; background: var(--carta); border: 1px solid var(--pietra); border-radius: 16px; padding: 18px 22px 10px; margin: 0 0 24px; }
+.lessico-testa { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding-bottom: 10px; border-bottom: 2px solid var(--oro-chiaro); }
+.lessico-testa h4 { margin: 0; font-family: var(--display); font-style: italic; font-weight: 500; color: var(--rosso); font-size: 1.45rem; }
+.lessico-toggle { font: 700 .85rem var(--testo); color: var(--laguna); background: transparent; border: 1.5px solid #cdb8a6; border-radius: 999px; padding: 6px 14px; cursor: pointer; }
+.lessico-toggle:hover, .lessico-toggle[aria-pressed="true"] { background: var(--laguna); color: #fff; border-color: var(--laguna); }
+.lessico-lista { list-style: none; margin: 0; padding: 0; }
+.lessico-lista li { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 34px; gap: 14px; align-items: center; padding: 9px 0; border-bottom: 1px dashed #e6d6c8; }
+.lessico-lista li:last-child { border-bottom: 0; }
+.lessico-it { font-family: var(--display); font-size: 1.18rem; font-weight: 600; color: var(--laguna); line-height: 1.3; }
+.lessico-ru { font: 500 1rem/1.35 var(--testo); color: var(--grigio); text-align: left; background: none; border: 0; padding: 4px 8px; margin: -4px -8px; border-radius: 6px; cursor: default; }
+.lessico.nascondi .lessico-ru { color: transparent; background: var(--intonaco); cursor: pointer; user-select: none; position: relative; }
+.lessico.nascondi .lessico-ru::after { content: "tocca per vedere"; position: absolute; left: 8px; top: 50%; transform: translateY(-50%); color: #b49f8e; font-size: .8rem; font-style: italic; }
+.lessico.nascondi li.svelato .lessico-ru { color: var(--verde); background: var(--verde-chiaro); }
+.lessico.nascondi li.svelato .lessico-ru::after { content: none; }
+@media (max-width: 520px) {
+  .lessico { padding: 16px 14px 8px; }
+  .lessico-lista li { grid-template-columns: minmax(0, 1fr) 34px; gap: 2px 10px; }
+  .lessico-it { grid-column: 1; }
+  .lessico-ru { grid-column: 1; grid-row: 2; }
+  .lessico-lista .ascolta { grid-column: 2; grid-row: 1 / span 2; }
 }
-.carta-in { position: relative; width: 100%; height: 100%; transition: transform .45s; transform-style: preserve-3d; }
-.carta.girata .carta-in { transform: rotateY(180deg); }
-.carta .fronte, .carta .retro {
-  position: absolute; inset: 0; backface-visibility: hidden; border-radius: 12px; display: grid; place-items: center; padding: 10px 14px; text-align: center;
-}
-.carta .fronte { background: #fff; border: 1px solid var(--pietra); color: var(--laguna); font-family: var(--display); font-size: 1.22rem; font-weight: 600; }
-.carta .retro { background: var(--laguna); color: var(--oro-chiaro); transform: rotateY(180deg); font-weight: 700; }
-.gruppo-carte { margin-bottom: 30px; }
-.gruppo-carte h4 { font-family: var(--display); font-style: italic; font-weight: 500; color: var(--rosso); font-size: 1.35rem; }
 
 .sintesi { font-family: var(--display); font-size: 1.35rem; line-height: 1.55; color: var(--laguna); max-width: 62ch; }
 
